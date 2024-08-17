@@ -1,0 +1,9 @@
+There are several different docstring formats which one
+can use in order to enable Sphinx’s autodoc extension
+to automatically generate documentation.
+
+For this tutorial we will use the Sphinx format, since,
+as the name suggests, it is the standard format used with Sphinx.
+Other formats include Google (see here) and NumPy (see here),
+but they require the use of Sphinx’s napoleon extension,
+which is beyond the scope of this tutorial.
