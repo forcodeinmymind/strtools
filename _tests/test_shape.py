@@ -41,6 +41,7 @@ utility.print_repr(shape.slice_lines(str_test, start, end))
 
 print("\n")
 str_test = "abc\ndef\nghi"
+# str_test = "abc\ndef\nghi\n"
 utility.print_repr(str_test)
 length = 5
 print(f"\nshape.pad_bottom(string=..., {length=})")
@@ -48,8 +49,8 @@ utility.print_repr(shape.pad_bottom(str_test, length))
 print(f"\nshape.pad_top(string=..., {length=})")
 utility.print_repr(shape.pad_top(str_test, length))
 
-step = 2
+# .endswith("\n")
 print("\n")
-print(f"\nshape.slice_lines_last(string=..., {step=})")
-print("->", shape.slice_lines_last(str_test, step))
-utility.print_repr(shape.slice_lines(str_test, shape.slice_lines_last(str_test, step), None))
+str_test = "abc\ndef\nghi\n"
+print("".join(repr(line).replace("'", "") for line in shape.splitlines(str_test, True)))
+# utility.print_repr("".join(shape.splitlines(str_test, True)), True)

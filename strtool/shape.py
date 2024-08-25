@@ -2,36 +2,41 @@
 1.0.0
 2024-08-17
 
+Notes
+-----
 len(.splitlines())
 len("...\n".splitlines()) == 1
 len("...".splitlines()) == 1
 len("".splitlines()) == 0
 slice
 [start:stop:step] stop == len(sequence) | None
+text.splitlines()[-length:None]
 """
 
-def newline_at(string: str, max_len: int) -> str:
-    """wrapping str max line len with `\n`"""
-    new_string = str()
-    for str_line in string.splitlines():
-        if len(str_line) > max_len:
-            new_string += "\n".join(str_line[i:i + max_len] for i in range(0, len(str_line), max_len)) + "\n"
-        else:
-            new_string += str_line + "\n"
-    return new_string
+def splitlines(text: str, keepends: bool = False) -> list[str]:
+    if len(text):
+        lines = text.splitlines(keepends)
+        if text.endswith("\n"):
+            lines.append("")
+        return lines
+    else:
+        return ["", ]
 
-def slice_lines(string: str, start: int, end: int | None = None) -> str:
-    """if end >= len(string): end = len(string); No IndexError"""
-    return "\n".join(str_line for str_line in string.splitlines()[start:end])
+def slice_lines(text: str, start: int = 0, end: int | None = None) -> str:
+    """if end >= len(text): end = len(text); No IndexError"""
+    return "\n".join(str_line for str_line in splitlines(text)[start:end])
 
-def slice_lines_last(string: str, length: int) -> int:
-    return len(string.splitlines()) - length
+def newline_at(text: str, max_len: int) -> str:
+    new_text = str()
+    for line in splitlines(text, True):
+        new_text += "\n".join([line[i:i+max_len] for i in range(0, len(line), max_len)])
+    return new_text
 
-def pad_bottom(string: str, length: int) -> str:
-    if not string.endswith(("\n", "\r\n", "\r")):
-        string += "\n"
-    return string + "\n" * (length - len(string.splitlines()))
+def pad_bottom(text: str, length: int, keepends: bool = False) -> str:
+    if not text.endswith(("\n", "\r\n", "\r")):
+        text += "\n"
+    return text + "\n" * (length - len(splitlines(text, keepends)))
 
-def pad_top(string: str, length: int) -> str:
-    len_lines = length - len(string.splitlines())
-    return "\n" * len_lines + string
+def pad_top(text: str, length: int, keepends: bool = False) -> str:
+    len_lines = length - len(splitlines(text, keepends))
+    return "\n" * len_lines + text

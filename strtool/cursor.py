@@ -20,6 +20,8 @@ test_cursorfunction
 """
 
 keeplinebreaks = True
+X = 0
+Y = 1
 
 
 def increment_column(text: str = str(), \
@@ -27,18 +29,14 @@ def increment_column(text: str = str(), \
                      keeplinebreaks: bool = True, \
                      ascend: bool = True) \
                      -> tuple[int, int]:
-    """
-    Increment parameter (cursor)'pos' (x, y)
+    """Increment parameter (cursor)'pos' (x, y)
     ascending or descending depending parameter 'ascend'.
     Parameter 'ascend'=True:
         if x + 1 < len(line): x+=0
         elif line + 1 < len(text.splitlines()): x=0, y+=1
         else: x=0, y=0
     """
-    X = 0
-    Y = 1
     LEN_LINES = tuple(len(str_line) for str_line in text.splitlines(keeplinebreaks))
-
     if ascend:
         if pos[X] < (LEN_LINES[pos[Y]] - 1):
             return (pos[X] + 1), pos[Y]
@@ -59,13 +57,7 @@ def increment_horizontal(text: str = str(), \
                          keeplinebreaks: bool = True, \
                          ascend: bool = True) \
                          -> tuple[int, int]:
-    """
-    ?
-    """
-    X = 0
-    Y = 1
     LEN_LINES = tuple(len(str_line) for str_line in text.splitlines(keeplinebreaks))
-
     if ascend:
         if pos[X] < (LEN_LINES[pos[Y]]):
             return (pos[X] + 1), pos[Y]
@@ -86,13 +78,7 @@ def increment_line(text: str = str(), \
                    keeplinebreaks: bool = True, \
                    ascend: bool = True) \
                    -> tuple[int, int]:
-    """
-    ?
-    """
-    X = 0
-    Y = 1
     LEN_LINES = tuple(len(str_line) for str_line in text.splitlines(keeplinebreaks))
-
     if ascend:
         if pos[Y] > 0:
             if pos[X] < LEN_LINES[pos[Y] - 1]:
@@ -121,13 +107,7 @@ def increment_vertical(text: str = str(), \
                        keeplinebreaks: bool = True, \
                        ascend: bool = True) \
                        -> tuple[int, int]:
-    """
-    ?
-    """
-    X = 0
-    Y = 1
     LEN_LINES = tuple(len(str_line) for str_line in text.splitlines(keeplinebreaks))
-
     if ascend:
         if pos[Y] > 0:
             if pos[X] <= LEN_LINES[pos[Y] - 1]:
@@ -150,7 +130,6 @@ def increment_vertical(text: str = str(), \
                 return pos[X], 0
             else:
                 return LEN_LINES[0], 0
-
 
 def test_cursorfunction(function=None, text=str(), pos=(0, 0), keeplinebreaks=True, ascend=True):
     str_func = str(function)[str(function).find(" ") + 1:]
